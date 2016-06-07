@@ -85,13 +85,16 @@ MagmaKick 사용자 등록 API
 
 MagmaKick의 API는 기기 관련 내용과 사용자 관련 내용을 나눠집니다.
 
+
 ## 기기 관련 API
+
 
 ### UUID를 이용해 토큰 요청
 
 > GET https://api.magmakick.io/device/token/:appFingerPrint/:UUID
 
 UUID를 이용해서 토큰을 획득할 때 사용합니다. 반복하여 API를 호출하는 일을 줄이고자 기기의 등록여부를 서버에서 확인합니다.
+
 
 ### 기기등록
 
@@ -105,26 +108,26 @@ UUID를 이용해서 토큰을 획득할 때 사용합니다. 반복하여 API�
  
  UUID를 전송하여 실제로 기기를 등록할 때 사용합니다.
  
- ## 사용자 관련 API
+## 사용자 관련 API
  
- ### 사용자 등록
+### 사용자 등록
  
- > POST  https://api.magmakick.io/user/add/:appFingerPrint
+> POST  https://api.magmakick.io/user/add/:appFingerPrint
  
-  파라미터
- 필드(Field) | 타입(Type) | 설명(Description)
- --- | --- | ---
- NickName | String | 사용할 별명(최대 12글자)
- Locale | String | 사용자 국가 및 설정 언어(ex:ko-kr) 
- UUID | String | 기기의 고유한 값(기기와 사용자 연결에 사용)
+파라미터
+필드(Field) | 타입(Type) | 설명(Description)
+--- | --- | ---
+NickName | String | 사용할 별명(최대 12글자)
+Locale | String | 사용자 국가 및 설정 언어(ex:ko-kr) 
+UUID | String | 기기의 고유한 값(기기와 사용자 연결에 사용)
  
- `아이디를 입력하세요~`로 아이디를 입력받은 경우 클라이언트는 사용자 등록을 이곳으로 보내게 됩니다.
+`아이디를 입력하세요~`로 아이디를 입력받은 경우 클라이언트는 사용자 등록을 이곳으로 보내게 됩니다.
  
- ### 사용자 정보 로딩
+### 사용자 정보 로딩
  
- > GET  https://api.magmakick.io/user/info
+> GET  https://api.magmakick.io/user/info
  
- > 토큰 필요
+> 토큰 필요
  
 사용자 정보를 로딩할 때 사용합니다. 이때 기기 정보를 통해서 발급받은 토큰을 헤더(Header)의 `Authorization` 필드로 함께 보내면 됩니다.
 
