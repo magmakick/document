@@ -115,6 +115,7 @@ UUID를 이용해서 토큰을 획득할 때 사용합니다. 반복하여 API�
 > POST  https://api.magmakick.io/user/add/:appFingerPrint
  
 파라미터
+
 필드(Field) | 타입(Type) | 설명(Description)
 --- | --- | ---
 NickName | String | 사용할 별명(최대 12글자)
