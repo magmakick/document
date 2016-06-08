@@ -101,7 +101,7 @@ UUID를 이용해서 토큰을 획득할 때 사용합니다. 반복하여 API�
  > POST https://api.magmakick.io/device/add/:appFingerPrint
  
  파라미터
- 
+
  필드(Field) | 타입(Type) | 설명(Description)
  --- | --- | ---
  UUID | String | 기기의 고유한 값
@@ -140,7 +140,7 @@ UUID | String | 기기의 고유한 값(기기와 사용자 연결에 사용)
 사용자 등록 예시
 ------
 
-진행 과정에 마그마킥 API를 대입하면 다음과 같습니다.
+진행 과정에 MagmaKick API를 대입하면 다음과 같습니다.
 
 ![사용자등록4](./images/mks_v04.png)
 
