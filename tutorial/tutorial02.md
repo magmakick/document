@@ -49,7 +49,7 @@ A씨는 5개월여의 준비끝에 집을 반전세로 돌리고 남은 차액�
 
 위와 같이 진행될 때 3~4번 사이에 `인앱 결제 영수증`을 검증하면 됩니다. MagmaKick의 인앱 영수증 검증도 이때 이뤄집니다.
 
-![인앱결제과정1](./images/mkinapp_v02.png)
+![인앱결제과정1](./images/mkinapp_v1.png)
 
 이를 바탕으로 Apple `AppStore`의 인앱 결제 순서와 검증 과정을 표현하면 아래와 같습니다.
 
@@ -59,7 +59,7 @@ A씨는 5개월여의 준비끝에 집을 반전세로 돌리고 남은 차액�
 4. 서버에 `결제 영수증`을 검증 요청한다.
 5. 검증 결과가 올바르면, `사용자` 계정에 결제 사항에 따른 상품을 지급한다.
 
-![인앱결제과정2](./images/mkinapp_v02.png)
+![인앱결제과정2](./images/mkinapp_v2.png)
 
 Google `Play`의 경우는 1~2번, 3~4번 사이에 Developer Payload 발급과 검증 과정을 추가합니다.
 
@@ -73,7 +73,7 @@ Google `Play`의 경우는 1~2번, 3~4번 사이에 Developer Payload 발급과 
 6. 검증 결과가 올바르면, 서버에 `결제 영수증`을 검증 요청한다.
 7. 검증 결과가 올바르면, `사용자` 계정에 결제 사항에 따른 상품을 지급한다.
 
-![인앱결제과정3](./images/mkinapp_v03.png)
+![인앱결제과정3](./images/mkinapp_v3.png)
 
 준비 과정
 ------
@@ -253,7 +253,7 @@ RawReceipt | String | 인앱 결제 후 발급받은 영수증이나 혹은 `tra
 
 > 결제에 관한 전체 과정을 [Unity IAP](https://docs.unity3d.com/Manual/UnityIAP.html) 샘플을 변형하여 사용했으므로 공식문서를 참고하시기 바랍니다.
 
-![인앱결제과정4](./images/mkinapp_v04.png)
+![인앱결제과정4](./images/mkinapp_v4.png)
 
 ## 맺음말
 
