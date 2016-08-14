@@ -1,0 +1,54 @@
+FORMAT: 1A
+HOST: https://api.magmakick.io
+
+# Payload
+
+Android 인앱 결제를 진행할 때 확인 목적으로 사용한다.
+
+## Payload 발급 [/payload]
+
+### GET
+
+Payload 발급에 사용한다.
+
+> 반드시 발급받은 토큰을 헤더 `Authorization`에 포함하여 요청해야한다.
+
++ Request
+    + Headers
+
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+        {
+            "result":0,
+            "payload":"STER123sdf..."
+        }
+
+## Payload 검증 [/payload/validation]
+
+### POST
+
+인앱 결제 영수증에 포함된 Payload를 검증한다.
+
+> 반드시 발급받은 토큰을 헤더 `Authorization`에 포함하여 요청해야한다.
+
++ payload:QWxh... (string, required) - MagmaKick에서 발급한 payload
+
++ Request
+
+    + Headers
+
+            Authorization: Bearer JWT
+
+    + Body
+
+            {
+                "payload":"STER123sdf..."
+            }
+
++ Response 200 (application/json)
+
+        {
+            "result":0
+        }

@@ -1,0 +1,214 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>인앱 결제 영수증 검증</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"><link rel="stylesheet" href="/stylesheets/style.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway:200"><style>/* Highlight.js Theme Tomorrow */
+.hljs-comment,.hljs-title{color:#8e908c}.hljs-variable,.hljs-attribute,.hljs-tag,.hljs-regexp,.ruby .hljs-constant,.xml .hljs-tag .hljs-title,.xml .hljs-pi,.xml .hljs-doctype,.html .hljs-doctype,.css .hljs-id,.css .hljs-class,.css .hljs-pseudo{color:#c82829}.hljs-number,.hljs-preprocessor,.hljs-pragma,.hljs-built_in,.hljs-literal,.hljs-params,.hljs-constant{color:#f5871f}.ruby .hljs-class .hljs-title,.css .hljs-rules .hljs-attribute{color:#eab700}.hljs-string,.hljs-value,.hljs-inheritance,.hljs-header,.ruby .hljs-symbol,.xml .hljs-cdata{color:#718c00}.css .hljs-hexcolor{color:#3e999f}.hljs-function,.python .hljs-decorator,.python .hljs-title,.ruby .hljs-function .hljs-title,.ruby .hljs-title .hljs-keyword,.perl .hljs-sub,.javascript .hljs-title,.coffeescript .hljs-title{color:#4271ae}.hljs-keyword,.javascript .hljs-function{color:#8959a8}.hljs{display:block;background:white;color:#4d4d4c;padding:.5em}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .javascript,.xml .vbscript,.xml .css,.xml .hljs-cdata{opacity:.5}</style><style>body,
+h4,
+h5 {
+  font-family: 'Roboto' sans-serif !important;
+}
+h1,
+h2,
+h3,
+.aglio {
+  font-family: 'Raleway' sans-serif !important;
+}
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a {
+  display: none;
+}
+h1:hover a,
+h2:hover a,
+h3:hover a,
+h4:hover a,
+h5:hover a {
+  display: inline;
+}
+code {
+  color: #444;
+  background-color: #ddd;
+  font-family: 'Inconsolata' monospace !important;
+}
+a[data-target] {
+  cursor: pointer;
+}
+h4 {
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.back-to-top {
+  position: fixed;
+  z-index: 1;
+  bottom: 0px;
+  right: 24px;
+  padding: 4px 8px;
+  background-color: #eee;
+  text-decoration: none !important;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  border-left: 1px solid rgba(0,0,0,0.1);
+  border-right: 1px solid rgba(0,0,0,0.1);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.panel {
+  overflow: hidden;
+}
+.panel-heading code {
+  margin-left: 3px;
+  color: #c7254e;
+  background-color: rgba(255,255,255,0.7);
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.panel-heading h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+a.list-group-item:hover {
+  background-color: #f8f8f8;
+  border-left: 2px solid #555;
+  padding-left: 15px;
+}
+.indent {
+  display: block;
+  text-indent: 16px;
+}
+.list-group-item {
+  padding-left: 16px;
+}
+.list-group-item .toggle .open {
+  display: block;
+}
+.list-group-item .toggle .closed {
+  display: none;
+}
+.list-group-item.collapsed .toggle .open {
+  display: none;
+}
+.list-group-item.collapsed .toggle .closed {
+  display: block;
+}
+a.list-group-item {
+  font-size: 13px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+a.list-group-item.heading {
+  font-size: 15px;
+  background-color: #f5f5f5;
+}
+a.list-group-item.heading:hover {
+  background-color: #f8f8f8;
+}
+.list-group-item.collapse {
+  display: none;
+}
+.list-group-item.collapse.in {
+  display: block;
+}
+.list-group-item a span.closed {
+  display: none;
+}
+.list-group-item a span.open {
+  display: block;
+}
+.list-group-item a.collapsed span.closed {
+  display: block;
+}
+.list-group-item a.collapsed span.open {
+  display: none;
+}
+#nav {
+  width: inherit;
+  margin-top: 38px;
+  max-width: 255px;
+  top: 0;
+  bottom: 0;
+  padding-right: 12px;
+  padding-bottom: 12px;
+  overflow-y: auto;
+}
+@media (max-width: 1199px) {
+  #nav {
+    max-width: 212px;
+  }
+}
+</style></head><body class="docs-wrapper"><nav class="navbar navbar-default navbar-fixed-top nav-shadow nav-intro"><div class="container"><button type="button" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div class="navbar-header"><a href="/" class="navbar-brand page-scroll"><img alt="MagmaKick Logo" src="/images/logo.png" style="max-width:40px; margin-top: -5px;"></a><a href="/" class="navbar-brand page-scroll"><img alt="MagmaKick Title" src="/images/title.png" style="margin-top: 5px;"></a></div><div id="navbar-collapse-1" class="collapse navbar-collapse"><ul class="nav navbar-nav navbar-right"><li><a href="/#what" class="page-scroll">MagmaKick 소개</a></li><li><a href="/docs/tutorial/tutorial01.md" class="page-scroll">문서</a></li></ul></div></div></nav><div class="page-content"><div id="docs-nav" class="docs-sidebar docs-nav"><header><a href="#" class="button-mobile-docs-menu">문서</a></header><div id="docs-dropdown" class="docs-dropdown"><section><h3>문서</h3><ul class="section primary-list"><li><a href="/docs/tutorial/tutorial01.md"><i class="icon-pencil"></i> 튜토리얼</a></li><li><a href="/documents/api/device.html" class="current">API 레퍼런스<div class="api-nav-menu"><nav class="grouped-list"><div><ul class="tertiary-list"><li><a href="/documents/api/device.html">Device</a></li><li><a href="/documents/api/user.html">User</a></li><li><a href="/documents/api/payload.html">Payload</a></li><li><a href="/documents/api/receipt.html">Receipt</a></li></ul></div></nav></div></a></li></ul></section></div></div></div><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a><div id="apiDoc" class="container"><div class="row"><div class="col-md-8"><div><header><div class="page-header"><h1 id="top">인앱 결제 영수증 검증</h1></div></header><div id="testyo"><p style="word-wrap: break-word;">HOST: https://api.magmakick.io</p></div><div class="description"><p>인앱 결제 영수증을 검증할 때 사용한다.</p>
+</div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="">Resource Group&nbsp;<a href="#"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><h4 id="-google-play-store-영수증-검증">google play store 영수증 검증&nbsp;<a href="#-google-play-store-영수증-검증"><i class="fa fa-link"></i></a></h4><section id="-google-play-store-영수증-검증-post" class="panel panel-success"><div class="panel-heading"><div style="float:left"><a href="#-google-play-store-영수증-검증-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/receipt/validation/googleiab</code></div></div><div class="panel-body"><p>Google Play Store 결제에 사용된 영수증을 검증한다.</p>
+<blockquote>
+<p>반드시 발급받은 토큰을 헤더 <code>Authorization</code>에 포함하여 요청해야한다.</p>
+</blockquote>
+<ul>
+<li>RawReceipt:&quot;{“orderId”:“129”,“packageName”:“com.example.app”,“productId”:“exampleSku”,“purchaseTime”:1345678900000,“purchaseState”:0,“developerPayload”:&quot;…&quot;,“purchaseToken”:&quot;…&quot;}&quot; (string, required) - 인앱 결제 영수증</li>
+</ul>
+</div><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#d4ed3c09ecb88d84bed4ff871be06403" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="d4ed3c09ecb88d84bed4ff871be06403" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer JWT</span><br></code></pre><h5>Body</h5><pre><code><span class="hljs-special">{</span>
+  "RawReceipt": "<span class="hljs-special">{</span><span class="hljs-command">\"</span>orderId<span class="hljs-command">\"</span>:<span class="hljs-command">\"</span>129<span class="hljs-command">\"</span>,<span class="hljs-command">\"</span>packageName<span class="hljs-command">\"</span>:<span class="hljs-command">\"</span>com.example.app<span class="hljs-command">\"</span>,<span class="hljs-command">\"</span>productId<span class="hljs-command">\"</span>:<span class="hljs-command">\"</span>exampleSku<span class="hljs-command">\"</span>,<span class="hljs-command">\"</span>purchaseTime<span class="hljs-command">\"</span>:1345678900000,<span class="hljs-command">\"</span>purchaseState<span class="hljs-command">\"</span>:0,<span class="hljs-command">\"</span>developerPayload<span class="hljs-command">\"</span>:<span class="hljs-command">\"</span>...<span class="hljs-command">\"</span>,<span class="hljs-command">\"</span>purchaseToken<span class="hljs-command">\"</span>:<span class="hljs-command">\"</span>...<span class="hljs-command">\"</span><span class="hljs-special">}</span>"
+<span class="hljs-special">}</span></code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#ff3d4a0aed7a56feebfe6c39d2edd8fc" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="ff3d4a0aed7a56feebfe6c39d2edd8fc" class="list-group-item panel-collapse collapse"><div class="description"><p><code>result</code>는 아래와 같다.</p>
+<table>
+<thead>
+<tr>
+<th>result</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>정상 결제 영수증</td>
+</tr>
+<tr>
+<td>1</td>
+<td>에러 혹은 거짓 영수증</td>
+</tr>
+</tbody>
+</table>
+</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">result</span>": <span class="hljs-value"><span class="hljs-number">0</span>
+</span>}</code></pre></li></ul></section><h4 id="-app-store-영수증-검증">App Store 영수증 검증&nbsp;<a href="#-app-store-영수증-검증"><i class="fa fa-link"></i></a></h4><section id="-app-store-영수증-검증-post" class="panel panel-success"><div class="panel-heading"><div style="float:left"><a href="#-app-store-영수증-검증-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/receipt/validation/appleiap</code></div></div><div class="panel-body"><p>App Store 결제에 사용된 영수증을 검증한다.</p>
+<blockquote>
+<p>반드시 발급받은 토큰을 헤더 <code>Authorization</code>에 포함하여 요청해야한다.</p>
+</blockquote>
+<ul>
+<li>RawReceipt:&quot;{“quantity”:1,“transaction-date”:“2016-07-03 01:29:00 +0000”,“transaction-state”:1,“transaction-identifier”:“sample1234”,“transaction-receipt”:“eee”,“product-identifier”:“productid”,“error”:&quot;&quot;,“verification-state”:0}&quot; (string, required) - 인앱 결제 영수증</li>
+</ul>
+</div><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#70b14a60a5f185d0998c0be129627a32" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="70b14a60a5f185d0998c0be129627a32" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer JWT</span><br></code></pre><h5>Body</h5><pre><code><span class="hljs-special">{</span>
+  "RawReceipt": "<span class="hljs-special">{</span><span class="hljs-command">\"</span>quantity<span class="hljs-command">\"</span>:1,<span class="hljs-command">\"</span>transaction-date<span class="hljs-command">\"</span>:<span class="hljs-command">\"</span>2016-07-03 01:29:00 +0000<span class="hljs-command">\"</span>,<span class="hljs-command">\"</span>transaction-state<span class="hljs-command">\"</span>:1,<span class="hljs-command">\"</span>transaction-identifier<span class="hljs-command">\"</span>:<span class="hljs-command">\"</span>sample1234<span class="hljs-command">\"</span>,<span class="hljs-command">\"</span>transaction-receipt<span class="hljs-command">\"</span>:<span class="hljs-command">\"</span>eee<span class="hljs-command">\"</span>,<span class="hljs-command">\"</span>product-identifier<span class="hljs-command">\"</span>:<span class="hljs-command">\"</span>productid<span class="hljs-command">\"</span>,<span class="hljs-command">\"</span>error<span class="hljs-command">\"</span>:<span class="hljs-command">\"</span><span class="hljs-command">\"</span>,<span class="hljs-command">\"</span>verification-state<span class="hljs-command">\"</span>:0<span class="hljs-special">}</span>"
+<span class="hljs-special">}</span></code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#4d93d80ad3960e26b92542007158ff4c" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="4d93d80ad3960e26b92542007158ff4c" class="list-group-item panel-collapse collapse"><div class="description"><p><code>result</code>는 아래와 같다.</p>
+<table>
+<thead>
+<tr>
+<th>result</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>정상 결제 영수증</td>
+</tr>
+<tr>
+<td>1</td>
+<td>에러 혹은 거짓 영수증</td>
+</tr>
+</tbody>
+</table>
+</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">result</span>": <span class="hljs-value"><span class="hljs-number">0</span>
+</span>}</code></pre></li></ul></section></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 26 Jul 2016</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
+
+</div></body><script src="//code.jquery.com/jquery-1.11.0.min.js"></script><script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script>(function() {
+  if (location.protocol === 'file:') {
+    document.getElementById('localFile').style.display = 'block';
+  }
+
+}).call(this);
+</script><script>(function() {
+  $('table').addClass('table');
+
+}).call(this);
+</script></html>

@@ -1,0 +1,79 @@
+FORMAT: 1A
+HOST: https://api.magmakick.io
+
+# 인앱 결제 영수증 검증
+
+인앱 결제 영수증을 검증할 때 사용한다.
+
+## google play store 영수증 검증 [/receipt/validation/googleiab]
+
+### POST
+
+Google Play Store 결제에 사용된 영수증을 검증한다.
+
+> 반드시 발급받은 토큰을 헤더 `Authorization`에 포함하여 요청해야한다.
+
++ RawReceipt:"{\"orderId\":\"129\",\"packageName\":\"com.example.app\",\"productId\":\"exampleSku\",\"purchaseTime\":1345678900000,\"purchaseState\":0,\"developerPayload\":\"...\",\"purchaseToken\":\"...\"}" (string, required) - 인앱 결제 영수증
+
++ Request
+    + Headers
+
+            Authorization: Bearer JWT
+
+    + Body
+
+            {
+                "RawReceipt":"{\"orderId\":\"129\",\"packageName\":\"com.example.app\",\"productId\":\"exampleSku\",\"purchaseTime\":1345678900000,\"purchaseState\":0,\"developerPayload\":\"...\",\"purchaseToken\":\"...\"}"
+            }
+
++ Response 200 (application/json)
+
+    `result`는 아래와 같다.
+
+    result | 설명
+    --- | ---
+    0 | 정상 결제 영수증
+    1 | 에러 혹은 거짓 영수증
+
+    + Body
+
+            {
+                "result":0
+            }
+
+
+## App Store 영수증 검증 [/receipt/validation/appleiap]
+
+### POST
+
+App Store 결제에 사용된 영수증을 검증한다.
+
+> 반드시 발급받은 토큰을 헤더 `Authorization`에 포함하여 요청해야한다.
+
++ RawReceipt:"{\"quantity\":1,\"transaction-date\":\"2016-07-03 01:29:00 +0000\",\"transaction-state\":1,\"transaction-identifier\":\"sample1234\",\"transaction-receipt\":\"eee\",\"product-identifier\":\"productid\",\"error\":\"\",\"verification-state\":0}" (string, required) - 인앱 결제 영수증
+
++ Request
+    + Headers
+
+            Authorization: Bearer JWT
+
+    + Body
+
+            {
+                "RawReceipt":"{\"quantity\":1,\"transaction-date\":\"2016-07-03 01:29:00 +0000\",\"transaction-state\":1,\"transaction-identifier\":\"sample1234\",\"transaction-receipt\":\"eee\",\"product-identifier\":\"productid\",\"error\":\"\",\"verification-state\":0}"
+            }
+
++ Response 200 (application/json)
+
+    `result`는 아래와 같다.
+
+    result | 설명
+    --- | ---
+    0 | 정상 결제 영수증
+    1 | 에러 혹은 거짓 영수증
+
+    + Body
+
+            {
+                "result":0
+            }

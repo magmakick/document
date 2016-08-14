@@ -1,0 +1,9 @@
+{
+  "name": "magmakick_document",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "aglio": "^2.2.1"
+  }
+}

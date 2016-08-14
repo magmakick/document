@@ -1,0 +1,66 @@
+FORMAT: 1A
+HOST: https://api.magmakick.io
+
+# Device
+
+기기를 사용하여 인증을 받을 때 사용한다.
+
+## 디바이스 등록 [/device/add/{appFingerPrint}]
+
++ Parameters
+
+    + appFingerPrint (string, required) - app 고유 식별자
+
+### POST
+
+기기를 등록할 때 사용한다
+
++ UUID:asdfer... (string, required) - 기기 고유 식별자
++ DeviceType (enum[int], required) - 디바이스 타입
+
+    + Members
+        + 1:ios
+        + 2:aos
+        + 3:unity editor
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "UUID":"fea1-afaef-231-asdf",
+                "DeviceType":1
+            }
+
++ Response 200 (application/json)
+
+    등록 성공 상태를 리턴한다
+
+    + Body
+
+            {
+                "result":0
+            }
+
+## 토큰 발급 [/device/token/{appFingerPrint}/{UUID}]
+
++ Parameters
+
+    + appFingerPrint (string, required) - app 고유 식별자
+
+    + UUID:asdfer... (string, required) - 기기 고유 식별자
+
+### GET
+
+기기의 UUID를 이용하여 token을 발급한다.
+
++ Response 200
+
+    토큰을 리턴한다.
+
+    + Body
+
+            {
+              "result":0,
+              "token":"token string"
+            }
